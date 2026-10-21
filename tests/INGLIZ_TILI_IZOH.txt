@@ -1,0 +1,13 @@
+INGLIZ TILI SAVOLLARI: IZOH (2026-10-21 yangilangan)
+
+Starter (30 ta) va Beginner (20 ta): rasmli varaqalardan matnga o'tkazilgan.
+Rasm o'rniga emoji yoki qisqa izoh qo'yilgan (masalan: "Rasmda: mushuk stolning tagida").
+To'g'ri javob harfi A/B/C bo'yicha teng taqsimlanishi uchun variantlar tartibi aralashtirildi.
+Starter 26-savol: rasmdagi "I ___ cat." jumlasi "I ___ a cat." ga tuzatildi.
+
+Elementary, Intermediate, Advanced (20 tadan): English_*_MAX.docx fayllaridan olingan, kalitlar fayldagidek.
+O'qish (reading) savollarida matn har bir savol bilan birga ko'rsatiladi.
+Intermediate, 6-savol: kalit tuzatildi (B "remain" → C "remained"; "I would sooner + ega" dan keyin o'tgan zamon shakli keladi).
+
+Pre-Intermediate darajasi Intermediate bilan almashtirildi; shu darajada ro'yxatdan o'tganlar avtomatik Intermediate ga o'tkaziladi.
+Eski savollar: tests/arxiv/questions_eski_2026-10-21.json
