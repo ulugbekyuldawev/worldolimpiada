@@ -1,4 +1,5 @@
-import os, json, asyncio, random, io, re, time, math
+import os, json, asyncio, random, io, re, time, math, threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from datetime import datetime, timezone, timedelta
 from zoneinfo import ZoneInfo
 from pathlib import Path
@@ -804,6 +805,31 @@ async def version(update, context):
 async def error_handler(update, context):
     print("Xatolik:", repr(context.error))
 
+class HealthHandler(BaseHTTPRequestHandler):
+    """Render (Web Service) uchun: port ochiq bo‘lishi va tashqi ping (UptimeRobot) botni uxlatib qo‘ymasligi uchun."""
+    def do_GET(self):
+        body = f"OK {VERSION}".encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_HEAD(self):
+        self.send_response(200)
+        self.end_headers()
+
+    def log_message(self, *args):
+        pass
+
+def start_health_server():
+    port = os.getenv("PORT")
+    if not port:
+        return  # Railway / kompyuterda port kerak emas
+    server = ThreadingHTTPServer(("0.0.0.0", int(port)), HealthHandler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    print(f"Health server {port}-portda ishga tushdi.")
+
 def main():
     if not TOKEN:
         raise SystemExit("BOT_TOKEN ko‘rsatilmagan. README.md ni o‘qing.")
@@ -812,6 +838,7 @@ def main():
     if not ADMIN_PASSWORD or ADMIN_PASSWORD in ("change_this_password", "BU_YERGA_KUCHLI_PAROL_QOYING"):
         raise SystemExit("ADMIN_PASSWORD o‘rnatilmagan yoki standart qiymatda. Kuchli parol belgilang.")
     init_db()
+    start_health_server()
 
     async def post_init(application):
         application.bot_data["watcher"] = asyncio.create_task(watcher(application))

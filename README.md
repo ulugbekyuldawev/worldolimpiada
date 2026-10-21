@@ -15,6 +15,9 @@
 
 Test holati bazada saqlanadi, shuning uchun bot qayta ishga tushsa ham o'quvchining testi yo'qolmaydi.
 
+## Render'ga joylash
+Yo'riqnoma: `RENDER.md` (Blueprint fayli: `render.yaml`).
+
 ## Railway'ga joylash
 1. Loyihani GitHub'ga yuklang (`.env` yuklanmasin, `.gitignore` buni oldini oladi).
 2. Railway → **New Project** → **Deploy from GitHub repo** → shu repozitoriyani tanlang.
