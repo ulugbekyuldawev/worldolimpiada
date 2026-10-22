@@ -14,6 +14,7 @@
 - Ro'yxatdan o'tishni yoqish/o'chirish.
 - 👥 Ro'yxatdan o'tganlar: hamma o'quvchi, har birining holati va natijasi bilan. 🏆 Umumiy natijalar: fan va daraja bo'yicha o'rinlar.
 - 🗑 O'quvchini o'chirish (ism bo'yicha qidirib yoki ro'yxatdagi /del_... orqali) va 🗑 Hammasini o'chirish (o'quvchilar, natijalar, ishlanayotgan testlar; olimpiada vaqti va sozlamalar qoladi). Har ikkisi tasdiq so'raydi.
+- 📚 Testlarni ko'rish: fan va darajani tanlab, barcha savollar, variantlar va to'g'ri javoblar (✅) ni ko'rish.
 - Admin panelga kirganda olimpiada holati va belgilangan vaqt ko'rsatiladi.
 
 Test holati bazada saqlanadi, shuning uchun bot qayta ishga tushsa ham o'quvchining testi yo'qolmaydi.
@@ -49,7 +50,7 @@ Yo'riqnoma: `RENDER.md` (Blueprint fayli: `render.yaml`).
 Admin panel → «🕒 Olimpiada vaqtini belgilash»: avval boshlanish vaqti (`YYYY-MM-DD HH:MM`, masalan `2026-10-20 17:00`), keyin davomiylik (daqiqada). Testni faqat boshlanish vaqtidan «boshlanish + davomiylik» gacha boshlash mumkin (masalan, 08:00 va 60 daqiqa bo'lsa 08:00–09:00). Har bir o'quvchi boshlagan paytidan to'liq davomiylikni oladi: 08:40 da boshlagan o'quvchi 09:40 gacha ishlaydi. Soat 09:00 dan keyin testni boshlab bo'lmaydi. Mental arifmetikada har bir o'quvchiga boshlagan paytidan 10 daqiqa beriladi.
 
 ## Savollar
-- `tests/questions.json` — ingliz tili: Starter (30 ta), Beginner, Elementary, Intermediate, Advanced (20 tadan). Izoh: `tests/INGLIZ_TILI_IZOH.txt`.
+- `tests/questions.json` — ingliz tili: Beginner (30 ta), Starter, Elementary, Intermediate, Advanced (20 tadan). Izoh: `tests/INGLIZ_TILI_IZOH.txt`.
 - `tests/matematika.json` — 1–11-sinf savollari (asl hujjatdan olingan, kalitlar qayta hisoblab tekshirilgan; tuzatishlar `tests/MATEMATIKA_TUZATISHLAR.txt` da).
 - `tests/mental.json` — Mental arifmetika: 120 ta misol (`tests/mental_asl/megabrain_misollar 2.pdf`, 1 xonali oddiy ±). Misollar ketma-ket chiqadi, o'quvchi javobni raqam bilan yozadi. Test boshlangandan keyin 10 daqiqa beriladi, vaqt tugasa qaysi misolda bo'lsa ham test yakunlanadi. Natija foizda emas, ballda: har bir to'g'ri javob 1 ball (o'rin ball bo'yicha, teng bo'lsa kam vaqt sarflagan yuqorida).
 - `tests/it.json` — IT: Frontend (HTML, CSS) va Backend Python, 20 tadan oson test.

@@ -15,54 +15,54 @@
    "n": 2,
    "q": "Qutida 30 ta o‘yinchoq bor edi. 12 tasi olindi. Nechta qoldi?",
    "options": [
-    "14",
+    "18",
     "16",
     "22",
-    "18"
+    "14"
    ],
-   "correct": "D"
+   "correct": "A"
   },
   {
    "n": 3,
    "q": "17 ta + 23 ta − 8 ta = ?",
    "options": [
-    "36",
     "32",
     "28",
+    "36",
     "30"
    ],
-   "correct": "B"
+   "correct": "A"
   },
   {
    "n": 4,
    "q": "Bir javonda 25 ta, ikkinchisida 19 ta kitob. Jami nechta?",
    "options": [
+    "34",
     "44",
     "54",
-    "34",
     "40"
    ],
-   "correct": "A"
+   "correct": "B"
   },
   {
    "n": 5,
    "q": "35 ta meva bor edi. 16 tasi yeyildi. Nechta qoldi?",
    "options": [
-    "21",
-    "15",
+    "19",
     "17",
-    "19"
+    "21",
+    "15"
    ],
-   "correct": "D"
+   "correct": "A"
   },
   {
    "n": 6,
    "q": "12 ta, 15 ta va 18 ta sharchik. Hammasi nechta?",
    "options": [
-    "55",
+    "35",
     "45",
-    "40",
-    "35"
+    "55",
+    "40"
    ],
    "correct": "B"
   },
@@ -70,32 +70,32 @@
    "n": 7,
    "q": "Bir uyda 28 ta, ikkinchisida 22 ta deraza. Birinchidan 10 ta yopildi. Qolgan derazalar jami?",
    "options": [
-    "42",
+    "40",
     "38",
-    "36",
-    "40"
+    "42",
+    "36"
    ],
-   "correct": "D"
+   "correct": "A"
   },
   {
    "n": 8,
    "q": "Uch savatda 21, 17 va 14 ta tuxum. Har biridan 3 tadan olindi. Qolgani?",
    "options": [
-    "37",
     "43",
-    "34",
-    "49"
+    "37",
+    "49",
+    "34"
    ],
-   "correct": "B"
+   "correct": "A"
   },
   {
    "n": 9,
    "q": "45 ta olma bor edi. 18 tasi berildi, keyin 9 ta keldi. Endi nechta?",
    "options": [
     "36",
-    "32",
     "34",
-    "38"
+    "38",
+    "32"
    ],
    "correct": "A"
   },
@@ -103,45 +103,45 @@
    "n": 10,
    "q": "16 ta + 24 ta − 11 ta = ?",
    "options": [
-    "31",
     "29",
     "27",
+    "31",
     "25"
    ],
-   "correct": "B"
+   "correct": "A"
   },
   {
    "n": 11,
    "q": "Qizil mashinada 20 bola, ko‘kda 15, yashilda 13. Hammasi nechta?",
    "options": [
     "38",
-    "58",
     "48",
+    "58",
     "42"
    ],
-   "correct": "C"
+   "correct": "B"
   },
   {
    "n": 12,
    "q": "32 ta kitob bor edi. 14 tasi o‘qildi. Nechta qoldi?",
    "options": [
-    "20",
+    "18",
     "16",
     "22",
-    "18"
+    "20"
    ],
-   "correct": "D"
+   "correct": "A"
   },
   {
    "n": 13,
    "q": "22 ta, 19 ta va 15 ta meva. Jami nechta?",
    "options": [
+    "46",
     "56",
     "66",
-    "46",
     "50"
    ],
-   "correct": "A"
+   "correct": "B"
   },
   {
    "n": 14,
@@ -149,8 +149,8 @@
    "options": [
     "19",
     "17",
-    "15",
-    "21"
+    "21",
+    "15"
    ],
    "correct": "A"
   },
@@ -158,67 +158,67 @@
    "n": 15,
    "q": "Bir uyda 26 ta, ikkinchisida 18 ta, uchinchisida 14 ta deraza. Hammasi nechta?",
    "options": [
-    "52",
     "48",
     "58",
-    "68"
+    "68",
+    "52"
    ],
-   "correct": "C"
+   "correct": "B"
   },
   {
    "n": 16,
    "q": "40 ta tuxum bor edi. 12 tasi ishlatildi. Nechta qoldi?",
    "options": [
+    "28",
     "26",
     "32",
-    "28",
     "24"
    ],
-   "correct": "C"
+   "correct": "A"
   },
   {
    "n": 17,
    "q": "18 ta + 27 ta − 13 ta = ?",
    "options": [
-    "28",
-    "30",
     "32",
-    "34"
+    "30",
+    "34",
+    "28"
    ],
-   "correct": "C"
+   "correct": "A"
   },
   {
    "n": 18,
    "q": "Qutida 36 ta, 24 ta va 12 ta. Eng katta qutidan eng kichigini ayiring.",
    "options": [
+    "24",
     "20",
     "28",
-    "16",
-    "24"
+    "16"
    ],
-   "correct": "D"
+   "correct": "A"
   },
   {
    "n": 19,
    "q": "30 ta bola bor edi. 11 tasi tushdi, 7 tasi chiqdi. Endi nechta?",
    "options": [
-    "28",
     "26",
-    "22",
-    "24"
+    "24",
+    "28",
+    "22"
    ],
-   "correct": "B"
+   "correct": "A"
   },
   {
    "n": 20,
    "q": "21 ta kitob + 19 ta kitob − 8 ta kitob = ?",
    "options": [
-    "34",
-    "30",
     "32",
+    "30",
+    "34",
     "28"
    ],
-   "correct": "C"
+   "correct": "A"
   }
  ],
  "2-sinf": [
@@ -323,7 +323,7 @@
   },
   {
    "n": 10,
-   "q": "3 ta daftar 18 so‘mdan, 4 ta qalam 15 so‘mdan, 2 ta o‘chirg‘ich 16 so‘mdan. Jami narxdan 25 so‘m chegirma. To‘lov?",
+   "q": "3 ta daftar 18 so‘m, 4 ta qalam 15 so‘m, 2 ta o‘chirg‘ich 16 so‘m. Jami narxdan 25 so‘m chegirma. To‘lov?",
    "options": [
     "146",
     "121",
@@ -545,7 +545,7 @@
   },
   {
    "n": 10,
-   "q": "5 ta tovar 136 so‘mdan, 4 ta tovar 125 so‘mdan, 6 ta tovar 48 so‘mdan. Jami + 124 so‘m yetkazib berish. To‘lov?",
+   "q": "5 tadan 136 so‘m, 4 tadan 125 so‘m, 6 tadan 48 so‘m. Jami + 124 so‘m yetkazib berish. To‘lov?",
    "options": [
     "1592",
     "1468",
@@ -690,7 +690,7 @@
   },
   {
    "n": 3,
-   "q": "9999 + 999 + 99 + 9 = ?",
+   "q": "9999 + 999 + 99 + 9 =",
    "options": [
     "11 106",
     "11 100",
@@ -701,7 +701,7 @@
   },
   {
    "n": 4,
-   "q": "□ : 6 = 9 (qoldiq △) tenglamasida △ ning eng katta qiymati nechaga teng?",
+   "q": "□ ÷ 6 = 9……△ tenglamasida △ ning eng katta qiymati nechaga teng?",
    "options": [
     "3",
     "4",
@@ -712,7 +712,7 @@
   },
   {
    "n": 5,
-   "q": "1 + 2 + 3 + 4 + … + 20 = ?",
+   "q": "1 + 2 + 3 + 4 + …… + 20 = ?",
    "options": [
     "190",
     "200",
@@ -723,7 +723,7 @@
   },
   {
    "n": 6,
-   "q": "Bir chelak 12 l suv, bir shisha esa 500 ml suv sig‘diradi. Chelakning sig‘imi shishanikidan necha marta katta?",
+   "q": "Bir chelak 12 ℓ suv, bir suv shishasi esa 500 mℓ suv sig‘dira oladi. Chelakning sig‘imi shishanikidan necha marta katta?",
    "options": [
     "20",
     "24",
@@ -734,23 +734,23 @@
   },
   {
    "n": 7,
-   "q": "Kvadratning perimetri 36 sm. Uning tomoni uzunligi qancha?",
+   "q": "Kvadratning perimetri 36 cm. Uning tomoni uzunligi qancha?",
    "options": [
-    "6 sm",
-    "8 sm",
-    "9 sm",
-    "12 sm"
+    "6 cm",
+    "8 cm",
+    "9 cm",
+    "12 cm"
    ],
    "correct": "C"
   },
   {
    "n": 8,
-   "q": "To‘g‘ri to‘rtburchak shaklidagi yerning uzunligi 25 m, eni 13 m. Yuzini hisoblang.",
+   "q": "To‘g‘ri to‘rtburchak shaklidagi yerning uzunligi 25 m, eni esa 13 m. Ushbu yerning yuzini hisoblang.",
    "options": [
-    "352 m²",
-    "235 m²",
-    "325 m²",
-    "253 m²"
+    "352m²",
+    "235m²",
+    "325m²",
+    "253m²"
    ],
    "correct": "C"
   },
@@ -758,16 +758,16 @@
    "n": 9,
    "q": "5/8 ni o‘nli kasrga aylantiring.",
    "options": [
-    "0,5",
-    "0,625",
-    "0,8",
-    "0,325"
+    "0.5",
+    "0.625",
+    "0.8",
+    "0.325"
    ],
    "correct": "B"
   },
   {
    "n": 10,
-   "q": "To‘g‘ri burchakli parallelepipedning nechta uchi bor?",
+   "q": "To‘g‘ri to‘rtburchakli parallelepipedning ( ) ta uchi bor.",
    "options": [
     "5",
     "4",
@@ -778,7 +778,7 @@
   },
   {
    "n": 11,
-   "q": "Siti xola har kuni 127 ta qovurilgan banan sotadi. 3 hafta davomida nechta banan sotadi?",
+   "q": "Siti xola har kuni 127 ta qovurilgan banan sotadi. 3 hafta davomida sotilgan qovurilgan bananlar sonini hisoblang.",
    "options": [
     "2 766",
     "2 676",
@@ -789,7 +789,7 @@
   },
   {
    "n": 12,
-   "q": "5 ta sonning o‘rtacha qiymati 12 ga teng. Bitta son olib tashlangach, qolgan 4 ta sonning o‘rtacha qiymati 10 ga teng bo‘ldi. Olib tashlangan son nechaga teng?",
+   "q": "5 ta sonning o‘rtacha qiymati 12 ga teng. Bitta son olib tashlangandan so‘ng, qolgan 4 ta sonning o‘rtacha qiymati 10 ga teng. Olib tashlangan son nechaga teng?",
    "options": [
     "10",
     "12",
@@ -800,12 +800,12 @@
   },
   {
    "n": 13,
-   "q": "To‘g‘ri to‘rtburchakning eni 7 sm, uzunligi enidan ikki baravar katta. Yuzini hisoblang.",
+   "q": "To‘g‘ri to‘rtburchakning eni 7 cm, uzunligi enidan ikki baravar katta. To‘g‘ri to‘rtburchakning yuzini cm²da hisoblang.",
    "options": [
-    "90 sm²",
-    "94 sm²",
-    "92 sm²",
-    "98 sm²"
+    "90cm²",
+    "94cm²",
+    "92cm²",
+    "98cm²"
    ],
    "correct": "D"
   },
@@ -824,21 +824,21 @@
    "n": 15,
    "q": "Quyidagi o‘nli kasrlardan qaysi biri eng katta?",
    "options": [
-    "7,0",
-    "0,7",
-    "0,07",
-    "0,007"
+    "7.0",
+    "0.7",
+    "0.07",
+    "0.007"
    ],
    "correct": "A"
   },
   {
    "n": 16,
-   "q": "Onam 3 kg olma va 2 kg uzumni jami 24 ming so‘mga sotib oldi. 1 kg olma 4 ming so‘m bo‘lsa, 1 kg uzum necha so‘m?",
+   "q": "Onam 3 kg olma va 2 kg uzum sotib oldi va jami RM24 sarfladi. Agar olmaning 1 kilogrami RM4 bo‘lsa, uzumning 1 kilogrami qancha turadi?",
    "options": [
-    "2 ming so‘m",
-    "4 ming so‘m",
-    "6 ming so‘m",
-    "8 ming so‘m"
+    "RM2",
+    "RM4",
+    "RM6",
+    "RM8"
    ],
    "correct": "C"
   },
@@ -855,7 +855,7 @@
   },
   {
    "n": 18,
-   "q": "Shoxruhning 50 ta markasi bor. U Ulug‘bekka 8 ta marka bergach, ikkalasida markalar soni teng bo‘ldi. Ulug‘bekda dastlab nechta marka bo‘lgan?",
+   "q": "Syaominning 50 ta markasi bor. U Syaohonga 8 ta marka bergandan so‘ng, ikkalasida ham markalar soni teng bo‘ldi. Syaohongning dastlab nechta markasi bo‘lgan?",
    "options": [
     "34",
     "36",
@@ -866,10 +866,10 @@
   },
   {
    "n": 19,
-   "q": "Qozonda 8,4 l ichimlik bor. Uning 5/8 qismi ichildi. Qozonda qolgan ichimlik hajmini ml da hisoblang.",
+   "q": "Bir qozonda 8,4 l qizil loviya ichimligi bor. Siz uning 5/8 qismini ichdingiz. Qozonda qolgan qizil loviya ichimligining hajmini ml da hisoblang.",
    "options": [
-    "3,15",
-    "31,5",
+    "3.15",
+    "31.5",
     "315",
     "3 150"
    ],

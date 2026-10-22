@@ -1,7 +1,27 @@
-2026-10-22: matematika savollari faqat o'zbek tilida (testlar_uzbekcha.zip).
-Yangi Word fayllar oldingilar bilan bir xil savollar, faqat ruscha va inglizcha matn olib tashlangan.
-Ulardagi javob kalitlari eski xatolarni takrorlaydi (1, 2, 3, 7-sinf), shuning uchun quyidagi tuzatishlar saqlab qolindi.
-2-sinf 8, 15, 18 va 3-sinf 6, 15, 18-savollarda yangi faylda variantlar o'zgartirilgan, lekin to'g'ri javob variantlar orasida yo'q yoki ikki variant bir xil edi; tekshirilgan variantlar qoldirildi.
+2026-10-22 (2): savollar matni va variantlar tartibi aynan testlar_uzbekcha.zip dagi Word fayllardagidek.
+Faqat noto'g'ri javob kalitlari tuzatildi, 6 ta savolda esa to'g'ri javob variantlar orasida yo'q yoki ikki variant bir xil edi, shu variant almashtirildi:
+1-sinf 2: fayl kaliti C (22), to'g'risi A (18)
+1-sinf 3: fayl kaliti B (28), to'g'risi A (32)
+1-sinf 4: fayl kaliti D (40), to'g'risi B (44)
+1-sinf 6: fayl kaliti C (55), to'g'risi B (45)
+1-sinf 7: fayl kaliti B (38), to'g'risi A (40)
+1-sinf 9: fayl kaliti D (32), to'g'risi A (36)
+1-sinf 10: fayl kaliti C (31), to'g'risi A (29)
+1-sinf 13: fayl kaliti C (66), to'g'risi B (56)
+1-sinf 14: fayl kaliti D (15), to'g'risi A (19)
+1-sinf 17: fayl kaliti C (34), to'g'risi A (32)
+1-sinf 18: fayl kaliti D (16), to'g'risi A (24)
+1-sinf 20: fayl kaliti B (30), to'g'risi A (32)
+2-sinf 8: fayl kaliti D (118 m), to'g'risi D (138 m) [variant tuzatildi]
+2-sinf 12: fayl kaliti D (46), to'g'risi A (66)
+2-sinf 15: fayl kaliti A (67), to'g'risi A (65) [variant tuzatildi]
+2-sinf 18: fayl kaliti B (4 soat 35 daqiqa), to'g'risi B (4 soat 35 daqiqa) [variant tuzatildi]
+2-sinf 19: fayl kaliti A (92), to'g'risi C (68)
+3-sinf 6: fayl kaliti A (1212), to'g'risi A (1236) [variant tuzatildi]
+3-sinf 15: fayl kaliti C (798), to'g'risi C (690) [variant tuzatildi]
+3-sinf 18: fayl kaliti C (4 soat 35 daqiqa), to'g'risi C (4 soat 35 daqiqa) [variant tuzatildi]
+7-sinf 19: fayl kaliti B (25/12), to'g'risi A (2)
+4-sinf: 14, 17, 20-savollar rasm/jadvalli bo'lgani uchun matn ko'rinishida yozilgan.
 Uch tilli eski bank: tests/arxiv/matematika_3tilli_2026-10-22.json
 
 MATEMATIKA SAVOLLARI (2026-10-21 yangilangan)

@@ -1,4 +1,4 @@
-Ingliz tili (tests/questions.json): Starter (30 ta), Beginner, Elementary, Intermediate, Advanced (har biri 20 ta savol).
+Ingliz tili (tests/questions.json): Beginner (30 ta), Starter, Elementary, Intermediate, Advanced (har biri 20 ta savol).
 Izoh: INGLIZ_TILI_IZOH.txt
 Eski savollar tests/arxiv/ papkasida saqlangan.
 

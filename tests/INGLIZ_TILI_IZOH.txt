@@ -1,9 +1,9 @@
 INGLIZ TILI SAVOLLARI: IZOH (2026-10-21 yangilangan)
 
-Starter (30 ta) va Beginner (20 ta): rasmli varaqalardan matnga o'tkazilgan.
+Starter (20 ta) va Beginner (30 ta): rasmli varaqalardan matnga o'tkazilgan (2026-10-22 dan Starter.png → Starter, Beginner.png → Beginner).
 Rasm o'rniga emoji yoki qisqa izoh qo'yilgan (masalan: "Rasmda: mushuk stolning tagida").
 To'g'ri javob harfi A/B/C bo'yicha teng taqsimlanishi uchun variantlar tartibi aralashtirildi.
-Starter 26-savol: rasmdagi "I ___ cat." jumlasi "I ___ a cat." ga tuzatildi.
+Beginner 26-savol: rasmdagi "I ___ cat." jumlasi "I ___ a cat." ga tuzatildi.
 
 Elementary, Intermediate, Advanced (20 tadan): English_*_MAX.docx fayllaridan olingan, kalitlar fayldagidek.
 O'qish (reading) savollarida matn har bir savol bilan birga ko'rsatiladi.
