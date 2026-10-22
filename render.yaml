@@ -12,6 +12,8 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.7
+      - key: PYTHONUNBUFFERED   # loglar darhol ko'rinsin
+        value: "1"
       - key: BOT_TOKEN
         sync: false      # Render so'raydi, qo'lda kiritasiz
       - key: ADMIN_LOGIN

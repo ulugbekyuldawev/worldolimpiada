@@ -1,3 +1,9 @@
+2026-10-22: matematika savollari faqat o'zbek tilida (testlar_uzbekcha.zip).
+Yangi Word fayllar oldingilar bilan bir xil savollar, faqat ruscha va inglizcha matn olib tashlangan.
+Ulardagi javob kalitlari eski xatolarni takrorlaydi (1, 2, 3, 7-sinf), shuning uchun quyidagi tuzatishlar saqlab qolindi.
+2-sinf 8, 15, 18 va 3-sinf 6, 15, 18-savollarda yangi faylda variantlar o'zgartirilgan, lekin to'g'ri javob variantlar orasida yo'q yoki ikki variant bir xil edi; tekshirilgan variantlar qoldirildi.
+Uch tilli eski bank: tests/arxiv/matematika_3tilli_2026-10-22.json
+
 MATEMATIKA SAVOLLARI (2026-10-21 yangilangan)
 
 Asl fayllar: tests/matematika_asl/ ("N-sinf 2 chi test" Word fayllari). Har sinfda 20 ta savol.

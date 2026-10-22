@@ -12,6 +12,9 @@
 - 🕒 Boshlanish vaqti (Asia/Tashkent) va davomiylikni belgilash; ⏱ davomiylikni o'zgartirish (ishlayotgan testlar muddati ham yangilanadi).
 - 📥 Excel: Natijalar (foiz, sarflangan vaqt, fan/daraja ichida o'rin), Barcha o'quvchilar, Ishlayotganlar, Topshirmaganlar.
 - Ro'yxatdan o'tishni yoqish/o'chirish.
+- 👥 Ro'yxatdan o'tganlar: hamma o'quvchi, har birining holati va natijasi bilan. 🏆 Umumiy natijalar: fan va daraja bo'yicha o'rinlar.
+- 🗑 O'quvchini o'chirish (ism bo'yicha qidirib yoki ro'yxatdagi /del_... orqali) va 🗑 Hammasini o'chirish (o'quvchilar, natijalar, ishlanayotgan testlar; olimpiada vaqti va sozlamalar qoladi). Har ikkisi tasdiq so'raydi.
+- Admin panelga kirganda olimpiada holati va belgilangan vaqt ko'rsatiladi.
 
 Test holati bazada saqlanadi, shuning uchun bot qayta ishga tushsa ham o'quvchining testi yo'qolmaydi.
 

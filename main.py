@@ -23,7 +23,7 @@ try:
 except Exception:
     TZ = timezone(timedelta(hours=5))
 
-VERSION = "2026-10-22 (Ingliz tili, Matematika, Mental arifmetika, IT; admin: ro‘yxat, o‘chirish)"
+VERSION = "2026-10-22 (Ingliz tili, Matematika o‘zbekcha, Mental arifmetika, IT; admin: ro‘yxat, o‘chirish)"
 SUBJECTS = ["Ingliz tili", "Matematika", "Mental arifmetika", "IT"]
 # Ingliz tili darajalari (tests/questions.json dagi bo‘limlar)
 ENGLISH_LEVELS = {"Starter": "Starter", "Beginner": "Beginner", "Elementary": "Elementary", "Intermediate": "Intermediate", "Advanced": "Advanced"}
