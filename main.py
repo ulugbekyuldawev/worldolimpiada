@@ -23,7 +23,7 @@ try:
 except Exception:
     TZ = timezone(timedelta(hours=5))
 
-VERSION = "2026-10-21 (Ingliz tili, Matematika, Mental arifmetika, IT)"
+VERSION = "2026-10-22 (Ingliz tili, Matematika, Mental arifmetika, IT; admin: ro‘yxat, o‘chirish)"
 SUBJECTS = ["Ingliz tili", "Matematika", "Mental arifmetika", "IT"]
 # Ingliz tili darajalari (tests/questions.json dagi bo‘limlar)
 ENGLISH_LEVELS = {"Starter": "Starter", "Beginner": "Beginner", "Elementary": "Elementary", "Intermediate": "Intermediate", "Advanced": "Advanced"}
@@ -194,7 +194,9 @@ def admin_keyboard():
     return ReplyKeyboardMarkup([
         ["📊 Statistika", "📥 Excel yuklab olish"],
         ["✅ Topshirganlar", "🔄 Ishlayotganlar"],
+        ["👥 Ro‘yxatdan o‘tganlar", "🏆 Umumiy natijalar"],
         ["⏳ Topshirmaganlar"],
+        ["🗑 O‘quvchini o‘chirish", "🗑 Hammasini o‘chirish"],
         ["🟢 Ro‘yxatdan o‘tishni " + ("o‘chirish" if enabled else "yoqish")],
         ["🕒 Olimpiada vaqtini belgilash", "⏱ Davomiylikni o‘zgartirish"],
         ["📅 Olimpiada vaqtini ko‘rish"],
@@ -559,7 +561,8 @@ async def admin_password(update, context):
         return ConversationHandler.END
     FAILS.pop(uid, None)
     q_exec("INSERT INTO admins(telegram_id) VALUES(%s) ON CONFLICT DO NOTHING", (uid,))
-    await update.message.reply_text("✅ Admin panelga xush kelibsiz.", reply_markup=admin_keyboard())
+    await update.message.reply_text(f"✅ Admin panelga xush kelibsiz.\n\nHolat: {olympiad_state()}\nOlimpiada: {schedule_line()}",
+                                    reply_markup=admin_keyboard())
     return ConversationHandler.END
 
 async def admin_exit(update, context):
@@ -641,6 +644,132 @@ async def admin_waiting(update, context):
     rows = q_all(WAITING_SQL)
     lines = [f"{i}. {r['full_name']} — {r['subject']}/{r['level']} ({school_label(r['school'])})" for i, r in enumerate(rows, 1)]
     await send_lines(update, f"⏳ Hali test ishlamaganlar: {len(rows)} ta", lines)
+
+def user_status(r):
+    if r.get("r_subject") is not None:
+        return "✅ " + score_text({"subject": r["r_subject"], "correct": r["r_correct"], "answered": r["r_answered"],
+                                   "percent": r["r_percent"], "total": r["r_total"]})
+    if r.get("e_idx") is not None:
+        return f"🔄 ishlayapti ({r['e_idx']} savol)"
+    return "⏳ hali ishlamagan"
+
+USERS_SQL = """SELECT u.*, r.subject AS r_subject, r.correct AS r_correct, r.answered AS r_answered, r.percent AS r_percent,
+    r.total AS r_total, e.idx AS e_idx
+    FROM users u LEFT JOIN results r ON r.telegram_id=u.telegram_id LEFT JOIN exams e ON e.telegram_id=u.telegram_id"""
+
+def user_line(i, r):
+    return (f"{i}. {r['full_name']} — {r['subject']}/{r['level']}, {school_label(r['school'])}, {r['grade'] or '-'}\n"
+            f"    {user_status(r)} · o‘chirish: /del_{r['telegram_id']}")
+
+async def admin_users(update, context):
+    if not is_admin(update.effective_user.id): return
+    rows = q_all(USERS_SQL + " ORDER BY u.subject, u.level, LOWER(u.full_name)")
+    lines = [user_line(i, r) for i, r in enumerate(rows, 1)]
+    await send_lines(update, f"👥 Ro‘yxatdan o‘tganlar: {len(rows)} ta\nOlimpiada: {schedule_line()}\n\n"
+                             "Kimnidir o‘chirish uchun uning qatoridagi /del_... ni bosing.", lines)
+
+async def admin_results(update, context):
+    if not is_admin(update.effective_user.id): return
+    rows = q_all("SELECT * FROM results ORDER BY subject, level, percent DESC NULLS LAST, correct DESC, duration_sec ASC")
+    groups = {}
+    for r in rows:
+        groups.setdefault((r["subject"], r["level"]), []).append(r)
+    lines = []
+    for subj in SUBJECTS:
+        for lvl in LEVELS[subj]:
+            g = groups.pop((subj, lvl), [])
+            if g:
+                lines.append(f"\n📚 {subj} — {lvl} ({len(g)} ta)")
+                lines += [f"{i}-o‘rin. {r['full_name']}: {score_text(r)}, {fmt_dur(r['duration_sec'])}" for i, r in enumerate(g, 1)]
+    for (subj, lvl), g in groups.items():  # endi botda yo‘q fan/daraja bo‘yicha eski natijalar
+        lines.append(f"\n📚 {subj} — {lvl} ({len(g)} ta)")
+        lines += [f"{i}-o‘rin. {r['full_name']}: {score_text(r)}, {fmt_dur(r['duration_sec'])}" for i, r in enumerate(g, 1)]
+    await send_lines(update, f"🏆 Umumiy natijalar: {len(rows)} kishi topshirgan", lines)
+
+def delete_user_everywhere(uid):
+    with db() as c:
+        c.execute("DELETE FROM exams WHERE telegram_id=%s", (uid,))
+        c.execute("DELETE FROM results WHERE telegram_id=%s", (uid,))
+        return c.execute("DELETE FROM users WHERE telegram_id=%s", (uid,)).rowcount
+
+def confirm_delete_markup(uid):
+    return InlineKeyboardMarkup([[InlineKeyboardButton("🗑 Ha, o‘chirish", callback_data=f"del:yes:{uid}"),
+                                  InlineKeyboardButton("Yo‘q", callback_data="del:no")]])
+
+async def ask_delete_user(message, uid):
+    r = q_one(USERS_SQL + " WHERE u.telegram_id=%s", (uid,))
+    if not r:
+        await message.reply_text("Bu o‘quvchi bazada topilmadi (balki allaqachon o‘chirilgan)."); return
+    await message.reply_text(f"Shu o‘quvchini bazadan butunlay o‘chiraymi? Uning natijasi ham o‘chadi.\n\n{user_line(1, r)[3:]}",
+                             reply_markup=confirm_delete_markup(uid))
+
+async def delete_command(update, context):
+    if not is_admin(update.effective_user.id): return
+    m = re.match(r"^/del_(\d+)", update.message.text or "")
+    if m:
+        await ask_delete_user(update.message, int(m.group(1)))
+
+async def delete_prompt(update, context):
+    if not is_admin(update.effective_user.id): return
+    context.user_data["awaiting_delete"] = True
+    await update.message.reply_text("O‘chirmoqchi bo‘lgan o‘quvchining ismi (yoki familiyasi) ni yozing, men topib beraman.\n"
+                                    "Yoki 👥 Ro‘yxatdan o‘tganlar ro‘yxatidagi /del_... ni bosing.",
+                                    reply_markup=ReplyKeyboardMarkup([[CANCEL]], resize_keyboard=True))
+
+async def delete_search(update, context):
+    text = (update.message.text or "").strip()
+    context.user_data.pop("awaiting_delete", None)
+    if text == CANCEL or not is_admin(update.effective_user.id):
+        await update.message.reply_text("Bekor qilindi.", reply_markup=admin_keyboard()); return
+    if text.isdigit():
+        rows = q_all(USERS_SQL + " WHERE u.telegram_id=%s", (int(text),))
+    else:
+        rows = q_all(USERS_SQL + " WHERE u.full_name ILIKE %s ORDER BY LOWER(u.full_name) LIMIT 20", (f"%{text}%",))
+    if not rows:
+        await update.message.reply_text("Hech kim topilmadi. Qaytadan 🗑 O‘quvchini o‘chirish ni bosing.", reply_markup=admin_keyboard()); return
+    await update.message.reply_text(f"Topildi: {len(rows)} ta. O‘chirish uchun kerakli o‘quvchini tanlang:", reply_markup=admin_keyboard())
+    for i, r in enumerate(rows, 1):
+        await update.message.reply_text(user_line(i, r), reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("🗑 O‘chirish", callback_data=f"del:ask:{r['telegram_id']}")]]))
+
+async def delete_all_prompt(update, context):
+    if not is_admin(update.effective_user.id): return
+    users = q_one("SELECT COUNT(*) AS n FROM users")["n"]
+    done = q_one("SELECT COUNT(*) AS n FROM results")["n"]
+    active = q_one("SELECT COUNT(*) AS n FROM exams")["n"]
+    await update.message.reply_text(
+        f"⚠️ Diqqat! Bazadagi BARCHA o‘quvchilar ({users} ta), ularning natijalari ({done} ta) va ishlanayotgan testlar ({active} ta) "
+        "butunlay o‘chiriladi. Buni qaytarib bo‘lmaydi.\n\nAvval 📥 Excel yuklab olishni tavsiya qilaman.\n"
+        "Olimpiada vaqti va sozlamalar o‘chmaydi.",
+        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🗑 Ha, hammasini o‘chirish", callback_data="delall:yes"),
+                                            InlineKeyboardButton("Yo‘q", callback_data="delall:no")]]))
+
+async def delete_callback(update, context):
+    query = update.callback_query
+    await query.answer()
+    if not is_admin(query.from_user.id):
+        await query.edit_message_text("Bu amal faqat admin uchun."); return
+    parts = query.data.split(":")
+    if parts[0] == "delall":
+        if parts[1] != "yes":
+            await query.edit_message_text("Bekor qilindi. Hech narsa o‘chirilmadi."); return
+        with db() as c:
+            e = c.execute("DELETE FROM exams").rowcount
+            r = c.execute("DELETE FROM results").rowcount
+            u = c.execute("DELETE FROM users").rowcount
+        await query.edit_message_text(f"✅ O‘chirildi: {u} ta o‘quvchi, {r} ta natija, {e} ta ishlanayotgan test."); return
+    if parts[1] == "no":
+        await query.edit_message_text("Bekor qilindi. Hech narsa o‘chirilmadi."); return
+    uid = int(parts[2])
+    if parts[1] == "ask":
+        r = q_one(USERS_SQL + " WHERE u.telegram_id=%s", (uid,))
+        if not r:
+            await query.edit_message_text("Bu o‘quvchi bazada topilmadi (balki allaqachon o‘chirilgan)."); return
+        await query.edit_message_text(f"Shu o‘quvchini bazadan butunlay o‘chiraymi? Uning natijasi ham o‘chadi.\n\n{user_line(1, r)[3:]}",
+                                      reply_markup=confirm_delete_markup(uid)); return
+    r = get_user(uid)
+    n = delete_user_everywhere(uid)
+    await query.edit_message_text(f"✅ {r['full_name']} bazadan o‘chirildi." if n and r else "Bu o‘quvchi allaqachon o‘chirilgan.")
 
 async def toggle_registration(update, context):
     if not is_admin(update.effective_user.id): return
@@ -788,9 +917,15 @@ async def text_router(update, context):
         "🧪 Testni boshlash": test_start, "👤 Profil": profile,
         "📊 Statistika": admin_stats, "📥 Excel yuklab olish": export_excel,
         "✅ Topshirganlar": admin_finished, "🔄 Ishlayotganlar": admin_active, "⏳ Topshirmaganlar": admin_waiting,
+        "👥 Ro‘yxatdan o‘tganlar": admin_users, "🏆 Umumiy natijalar": admin_results,
+        "🗑 O‘quvchini o‘chirish": delete_prompt, "🗑 Hammasini o‘chirish": delete_all_prompt,
         "🕒 Olimpiada vaqtini belgilash": schedule_prompt, "⏱ Davomiylikni o‘zgartirish": duration_prompt,
         "📅 Olimpiada vaqtini ko‘rish": schedule_show, "🚪 Admin paneldan chiqish": admin_exit,
     }
+    if context.user_data.get("awaiting_delete"):
+        if text not in routes and not text.startswith("🟢 Ro‘yxatdan o‘tishni"):
+            await delete_search(update, context); return
+        context.user_data.pop("awaiting_delete", None)
     if text in routes:
         await routes[text](update, context)
     elif text.startswith("🟢 Ro‘yxatdan o‘tishni"):
@@ -864,6 +999,8 @@ def main():
     app.add_handler(admin_conv)
     app.add_handler(CallbackQueryHandler(answer_question, pattern=r"^answer:"))
     app.add_handler(CallbackQueryHandler(begin_callback, pattern=r"^begin:"))
+    app.add_handler(CallbackQueryHandler(delete_callback, pattern=r"^del(all)?:"))
+    app.add_handler(MessageHandler(filters.Regex(r"^/del_\d+"), delete_command))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, text_router))
     app.add_error_handler(error_handler)
     print(f"Olimpiada bot ishga tushdi. Versiya: {VERSION}")
