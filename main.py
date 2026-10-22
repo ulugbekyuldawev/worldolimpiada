@@ -23,7 +23,7 @@ try:
 except Exception:
     TZ = timezone(timedelta(hours=5))
 
-VERSION = "2026-10-22 (Ingliz tili, Matematika o‘zbekcha, Mental arifmetika, IT; admin: ro‘yxat, o‘chirish)"
+VERSION = "2026-10-22 (Ingliz tili, Matematika o‘zbekcha, Mental arifmetika, IT; admin: ro‘yxat, o‘chirish, testlar)"
 SUBJECTS = ["Ingliz tili", "Matematika", "Mental arifmetika", "IT"]
 # Ingliz tili darajalari (tests/questions.json dagi bo‘limlar)
 ENGLISH_LEVELS = {"Starter": "Starter", "Beginner": "Beginner", "Elementary": "Elementary", "Intermediate": "Intermediate", "Advanced": "Advanced"}
@@ -195,7 +195,7 @@ def admin_keyboard():
         ["📊 Statistika", "📥 Excel yuklab olish"],
         ["✅ Topshirganlar", "🔄 Ishlayotganlar"],
         ["👥 Ro‘yxatdan o‘tganlar", "🏆 Umumiy natijalar"],
-        ["⏳ Topshirmaganlar"],
+        ["⏳ Topshirmaganlar", "📚 Testlarni ko‘rish"],
         ["🗑 O‘quvchini o‘chirish", "🗑 Hammasini o‘chirish"],
         ["🟢 Ro‘yxatdan o‘tishni " + ("o‘chirish" if enabled else "yoqish")],
         ["🕒 Olimpiada vaqtini belgilash", "⏱ Davomiylikni o‘zgartirish"],
@@ -771,6 +771,54 @@ async def delete_callback(update, context):
     n = delete_user_everywhere(uid)
     await query.edit_message_text(f"✅ {r['full_name']} bazadan o‘chirildi." if n and r else "Bu o‘quvchi allaqachon o‘chirilgan.")
 
+async def tests_menu(update, context):
+    if not is_admin(update.effective_user.id): return
+    rows = [[InlineKeyboardButton(f"{subj} ({sum(len(QBANK[subj][l]) for l in LEVELS[subj])} ta savol)", callback_data=f"qv:s:{i}")]
+            for i, subj in enumerate(SUBJECTS)]
+    await update.message.reply_text("📚 Qaysi fanning testlarini ko‘rmoqchisiz?", reply_markup=InlineKeyboardMarkup(rows))
+
+def question_lines(subj, lvl):
+    lines = []
+    for q in QBANK[subj][lvl]:
+        if "answer" in q:
+            lines.append(f"{q['n']}. {re.sub(r'=\s*\?\s*$', '', q['q']).strip()} = {q['answer']}")
+            continue
+        opts = "\n".join(f"   {'✅' if 'ABCD'[k] == q['correct'] else '▫️'} {'ABCD'[k]}) {o}" for k, o in enumerate(q["options"]))
+        lines.append(f"{q['n']}. {q['q']}\n{opts}\n")
+    return lines
+
+async def tests_callback(update, context):
+    query = update.callback_query
+    await query.answer()
+    if not is_admin(query.from_user.id):
+        await query.edit_message_text("Bu amal faqat admin uchun."); return
+    parts = query.data.split(":")
+    if parts[1] == "back":
+        await query.edit_message_text("📚 Qaysi fanning testlarini ko‘rmoqchisiz?", reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton(f"{subj} ({sum(len(QBANK[subj][l]) for l in LEVELS[subj])} ta savol)", callback_data=f"qv:s:{i}")]
+             for i, subj in enumerate(SUBJECTS)])); return
+    subj = SUBJECTS[int(parts[2])]
+    if parts[1] == "s":
+        rows = [[InlineKeyboardButton(f"{lvl} ({len(QBANK[subj][lvl])} ta)", callback_data=f"qv:l:{parts[2]}:{j}")]
+                for j, lvl in enumerate(LEVELS[subj])]
+        rows.append([InlineKeyboardButton("⬅️ Orqaga", callback_data="qv:back")])
+        await query.edit_message_text(f"📚 {subj}: darajani tanlang", reply_markup=InlineKeyboardMarkup(rows)); return
+    lvl = LEVELS[subj][int(parts[3])]
+    n = len(QBANK[subj][lvl])
+    if subj == MENTAL:
+        info = f"Misollar ketma-ket, hammaga bir xil tartibda chiqadi. Vaqt: {MENTAL_MINUTES} daqiqa. Har bir to‘g‘ri javob 1 ball."
+    else:
+        info = (f"O‘quvchiga {min(QUESTIONS_PER_TEST, n)} ta savol tasodifiy tartibda beriladi. "
+                f"Vaqt: boshlagan paytidan {duration_min()} daqiqa. ✅ to‘g‘ri javob.")
+    await query.edit_message_text(f"📚 {subj} — {lvl}: {n} ta savol\n{info}")
+    buf = ""
+    for line in question_lines(subj, lvl):
+        if len(buf) + len(line) + 1 > 3500:
+            await query.message.reply_text(buf); buf = ""
+        buf += line + "\n"
+    if buf:
+        await query.message.reply_text(buf)
+
 async def toggle_registration(update, context):
     if not is_admin(update.effective_user.id): return
     val = "0" if get_setting("registration_enabled", "1") == "1" else "1"
@@ -918,7 +966,7 @@ async def text_router(update, context):
         "📊 Statistika": admin_stats, "📥 Excel yuklab olish": export_excel,
         "✅ Topshirganlar": admin_finished, "🔄 Ishlayotganlar": admin_active, "⏳ Topshirmaganlar": admin_waiting,
         "👥 Ro‘yxatdan o‘tganlar": admin_users, "🏆 Umumiy natijalar": admin_results,
-        "🗑 O‘quvchini o‘chirish": delete_prompt, "🗑 Hammasini o‘chirish": delete_all_prompt,
+        "🗑 O‘quvchini o‘chirish": delete_prompt, "📚 Testlarni ko‘rish": tests_menu, "🗑 Hammasini o‘chirish": delete_all_prompt,
         "🕒 Olimpiada vaqtini belgilash": schedule_prompt, "⏱ Davomiylikni o‘zgartirish": duration_prompt,
         "📅 Olimpiada vaqtini ko‘rish": schedule_show, "🚪 Admin paneldan chiqish": admin_exit,
     }
@@ -1000,6 +1048,7 @@ def main():
     app.add_handler(CallbackQueryHandler(answer_question, pattern=r"^answer:"))
     app.add_handler(CallbackQueryHandler(begin_callback, pattern=r"^begin:"))
     app.add_handler(CallbackQueryHandler(delete_callback, pattern=r"^del(all)?:"))
+    app.add_handler(CallbackQueryHandler(tests_callback, pattern=r"^qv:"))
     app.add_handler(MessageHandler(filters.Regex(r"^/del_\d+"), delete_command))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, text_router))
     app.add_error_handler(error_handler)
